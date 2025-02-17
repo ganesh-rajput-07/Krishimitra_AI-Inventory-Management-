@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    .auth-container {
+        width: 100%;
+        max-width: 400px;
+        margin: auto;
+        padding: 30px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        text-align: center;
+        margin-top: 50px;
+    }
+    h2 {
+        color: #228B22;
+        font-size: 26px;
+        font-weight: bold;
+    }
+    .input-group {
+        position: relative;
+        width: 100%;
+        margin: 15px 0;
+    }
+    .input-group input {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: 0.3s;
+    }
+    .input-group input:focus {
+        border-color: #228B22;
+        outline: none;
+    }
+    button {
+        width: 100%;
+        padding: 12px;
+        background: #228B22;
+        border: none;
+        border-radius: 8px;
+        color: white;
+        font-size: 18px;
+        cursor: pointer;
+        transition: 0.3s;
+        font-weight: bold;
+    }
+    button:hover {
+        background: #1d7a1d;
+    }
+    .error-msg {
+        color: red;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+    p {
+        margin-top: 10px;
+    }
+    a {
+        color: #228B22;
+        font-weight: bold;
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<div class="auth-container">
+    <h2>Login to KrishiMitra AI</h2>
+
+    {% if messages %}
+        <ul class="error-msg">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+
+        <div class="input-group">
+            <input type="text" name="username" placeholder="Username or Email" required>
+        </div>
+        <div class="input-group">
+            <input type="password" name="password" placeholder="Password" required>
+        </div>
+
+        <button type="submit">Login</button>
+    </form>
+
+    <p>Don't have an account? <a href="{% url 'register' %}">Sign up here</a></p>
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Welcome, {{ user.username }}!</h1>
+{% if spoilage_items %}
+    <div style="background-color: red; color: white; padding: 10px; margin-bottom: 20px;">
+        <h3>⚠️ Spoilage Warning</h3>
+        <ul>
+            {% for item in spoilage_items %}
+                <li>{{ item.crop.name }} (Stored on {{ item.stored_date }}) is expected to spoil on {{ item.shelf_date }}.</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+{% for item in inventory %}
+<tr>
+    <td>{{ item.name }}</td>
+    <td>{{ item.quantity }}</td>
+    <td><a href="{% url 'edit_stock' item.id %}">Edit</a></td>
+</tr>
+{% endfor %}
+
+
+{% endblock %}

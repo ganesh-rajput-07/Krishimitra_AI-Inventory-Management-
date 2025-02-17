@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Your Inventory</h2>
+
+<!-- Display Inventory Items -->
+{% if inventory_items %}
+    <table border="1" cellpadding="10">
+        <thead>
+            <tr>
+                <th>Crop</th>
+                <th>Quantity</th>
+                <th>Remaining Stock</th>
+                <th>Stored Date</th>
+                <th>Spoilage Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in inventory_items %}
+                <tr>
+                    <td>{{ item.crop.name }}</td>
+                    <td>{{ item.quantity }} {{ item.unit }}</td>
+                    <td>{{ item.remaining_stock }} {{ item.unit }}</td>
+                    <td>{{ item.stored_date }}</td>
+                    <td>{{ item.shelf_date }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No inventory records found.</p>
+{% endif %}
+
+<!-- Add Stock Form -->
+<h2>Add New Stock</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Stock</button>
+</form>
+
+{% endblock %}
